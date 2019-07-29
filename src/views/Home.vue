@@ -66,14 +66,7 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+              <a href="" class="tag-pill tag-default" v-for="tag in tags.tags.tags" :key="tag">{{ tag }}</a>
             </div>
           </div>
         </div>
@@ -85,8 +78,24 @@
 </template>
 
 <script>
+import { onCreated } from 'vue-function-api';
+import { useState, useActions } from '@u3u/vue-hooks';
+
+import types from '../store/types';
+
 export default {
   name: 'home',
+  setup() {
+    const { tags } = useState(['tags']);
+    const { FETCH_TAGS } = useActions([types.FETCH_TAGS]);
 
+    onCreated(() => {
+      FETCH_TAGS();
+    });
+
+    return {
+      tags,
+    }
+  },
 };
 </script>

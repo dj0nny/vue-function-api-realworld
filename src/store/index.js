@@ -1,16 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import tags from './modules/tags';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-
+  modules: {
+    tags,
   },
-  mutations: {
-
-  },
-  actions: {
-
-  },
+  strict: true,
 });
