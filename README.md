@@ -1,5 +1,6 @@
 # vue-function-api-realworld
 
+[![Build Status](https://travis-ci.org/dj0nny/vue-function-api-realworld.svg?branch=develop)](https://travis-ci.org/dj0nny/vue-function-api-realworld)
 [![vue](https://img.shields.io/badge/build%20with-Vue-blue)](https://img.shields.io/badge/build%20with-Vue-blue)
 [![vue](https://img.shields.io/github/languages/top/dj0nny/vue-function-api-realworld)](https://img.shields.io/github/languages/top/dj0nny/vue-function-api-realworld)
 [![npm version](https://badge.fury.io/js/vue.svg)](https://badge.fury.io/js/vue)
