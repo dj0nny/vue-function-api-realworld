@@ -44,6 +44,18 @@ yarn serve
 ```
 The Vue development server it will be up and running at this address: http://localhost:8080.
 
+## Deployment
+
+For creating an optimized build of this project run:
+
+```bash
+npm run buld
+# OR
+yarn build
+```
+
+A deployed version on [Now](https://zeit.co/now) in available at this URL: https://vue-function-api-realworld-94hplejg4.now.sh/#/
+
 ## Built with ❤️ using:
 
 * [Vue.js](https://vuejs.org/) - A Javascript framework
