@@ -16,8 +16,8 @@ export default {
   actions: {
     async [types.FETCH_TAGS]({ commit }) {
       const res = await axios.get(`${BASE_URL}/tags`);
-      const tags = res.data;
-      commit(types.SET_TAGS, tags);
+      const tagsList = res.data.tags;
+      commit(types.SET_TAGS, tagsList);
     },
   },
 };

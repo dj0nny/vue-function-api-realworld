@@ -66,7 +66,7 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default" v-for="tag in tags.tags.tags" :key="tag">{{ tag }}</a>
+              <a href="" class="tag-pill tag-default" v-for="tag in tags.tags" :key="tag">{{ tag }}</a>
             </div>
           </div>
         </div>
