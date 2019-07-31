@@ -13,14 +13,14 @@
     <a href="" class="preview-link">
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
-      <router-link :to="{ name: 'article-detail', params: { id: item.slug }}"><span>Read more...</span></router-link>
+      <router-link :to="{ name: 'article-detail', params: { slug: item.slug }}"><span>Read more...</span></router-link>
     </a>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Article',
+  name: 'ArticlePreview',
   props: ['item'],
 };
 </script>

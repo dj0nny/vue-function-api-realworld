@@ -23,7 +23,7 @@
             </ul>
           </div>
 
-          <Article v-for="(article, index) in articles.articles" :key="index" :item="article"></Article>
+          <ArticlePreview v-for="(article, index) in articles" :key="index" :item="article"></ArticlePreview>
 
         </div>
 
@@ -32,7 +32,7 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default" v-for="tag in tags.tags" :key="tag">{{ tag }}</a>
+              <a href="" class="tag-pill tag-default" v-for="tag in tags" :key="tag">{{ tag }}</a>
             </div>
           </div>
         </div>
@@ -47,13 +47,13 @@
 import { onCreated } from 'vue-function-api';
 import { useState, useActions } from '@u3u/vue-hooks';
 
-import Article from '../components/Article.vue';
+import ArticlePreview from '../components/ArticlePreview.vue';
 import types from '../store/types';
 
 export default {
   name: 'home',
   components: {
-    Article,
+    ArticlePreview,
   },
   setup() {
     const { tags, articles } = useState(['tags', 'articles']);
