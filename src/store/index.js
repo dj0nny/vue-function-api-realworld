@@ -13,6 +13,7 @@ export default new Vuex.Store({
     tags: [],
     articles: [],
     article: [],
+    comments: [],
   },
   mutations: {
     [types.SET_TAGS](state, tags) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     [types.SET_ARTICLE_DETAIL](state, article) {
       state.article = article;
+    },
+    [types.SET_COMMENTS](state, commentsList) {
+      state.comments = commentsList;
     },
   },
   actions: {
@@ -40,6 +44,11 @@ export default new Vuex.Store({
       const res = await axios.get(`${BASE_URL}/articles/${slug}`);
       const articleDetails = res.data.article;
       commit(types.SET_ARTICLE_DETAIL, articleDetails);
+    },
+    async [types.FETCH_COMMENTS]({ commit }, slug) {
+      const res = await axios.get(`${BASE_URL}/articles/${slug}/comments`);
+      const commentsList = res.data.comments;
+      commit(types.SET_COMMENTS, commentsList);
     },
   },
 });

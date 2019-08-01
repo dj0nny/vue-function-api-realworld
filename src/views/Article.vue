@@ -75,36 +75,8 @@
             </div>
           </form>
 
-          <div class="card">
-            <div class="card-block">
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer">
-              <a href="" class="comment-author">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-              </a>
-              &nbsp;
-              <a href="" class="comment-author">Jacob Schmidt</a>
-              <span class="date-posted">Dec 29th</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-block">
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer">
-              <a href="" class="comment-author">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-              </a>
-              &nbsp;
-              <a href="" class="comment-author">Jacob Schmidt</a>
-              <span class="date-posted">Dec 29th</span>
-              <span class="mod-options">
-                <i class="ion-edit"></i>
-                <i class="ion-trash-a"></i>
-              </span>
-            </div>
+          <div v-if="comments">
+            <Comment v-for="(comment, index) in comments" :key="index"></Comment>
           </div>
 
         </div>
@@ -121,20 +93,23 @@ import { onCreated } from 'vue-function-api';
 import { useState, useActions, useRouter } from '@u3u/vue-hooks';
 
 import types from '../store/types';
+import Comment from '../components/Comment.vue'
 
 export default {
   name: 'Article',
   setup() {
-    const { article } = useState(['article']);
-    const { FETCH_ARTICLE_DETAIL } = useActions([types.FETCH_ARTICLE_DETAIL]);
+    const { article, comments } = useState(['article', 'comments']);
+    const { FETCH_ARTICLE_DETAIL, FETCH_COMMENTS } = useActions([types.FETCH_ARTICLE_DETAIL, types.FETCH_COMMENTS]);
     const { route } = useRouter();
 
     onCreated(() => {
       FETCH_ARTICLE_DETAIL(route.value.params.slug);
+      FETCH_COMMENTS(route.value.params.slug);
     });
 
     return {
       article,
+      comments,
     };
   },
 };
