@@ -5,7 +5,7 @@
     </div>
     <div class="card-footer">
       <a href="" class="comment-author">
-        <img :src="item.author.image" class="comment-author-img" />
+        <img v-if="article.author.image" :src="item.author.image" class="comment-author-img" />
       </a>
       &nbsp;
       <a href="" class="comment-author">{{ item.author.username }}</a>
@@ -22,5 +22,5 @@
 export default {
   name: 'Comment',
   props: ['item'],
-}
+};
 </script>

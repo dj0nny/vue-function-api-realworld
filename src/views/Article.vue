@@ -6,7 +6,7 @@
         <h1>{{ article.title }}</h1>
 
         <div class="article-meta">
-          <a href=""><img :src="article.author.image" /></a>
+          <a href=""><img v-if="article.author.image" :src="article.author.image" /></a>
           <div class="info">
             <a href="" class="author">{{ article.author.username }}</a>
             <span class="date">{{ article.createdAt }}</span>
@@ -39,7 +39,7 @@
 
       <div class="article-actions">
         <div class="article-meta">
-          <a href="profile.html"><img :src="article.author.image" /></a>
+          <a href="profile.html"><img v-if="article.author.image" :src="article.author.image" /></a>
           <div class="info">
             <a href="" class="author">{{ article.author.username }}</a>
             <span class="date">January 20th</span>
@@ -93,10 +93,13 @@ import { onCreated } from 'vue-function-api';
 import { useState, useActions, useRouter } from '@u3u/vue-hooks';
 
 import types from '../store/types';
-import Comment from '../components/Comment.vue'
+import Comment from '../components/Comment.vue';
 
 export default {
   name: 'Article',
+  components: {
+    Comment,
+  },
   setup() {
     const { article, comments } = useState(['article', 'comments']);
     const { FETCH_ARTICLE_DETAIL, FETCH_COMMENTS } = useActions([types.FETCH_ARTICLE_DETAIL, types.FETCH_COMMENTS]);
