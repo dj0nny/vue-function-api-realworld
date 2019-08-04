@@ -1,6 +1,7 @@
 # vue-function-api-realworld
 
 [![Build Status](https://travis-ci.org/dj0nny/vue-function-api-realworld.svg?branch=develop)](https://travis-ci.org/dj0nny/vue-function-api-realworld)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bc84030c-c6cd-461c-84d7-70e212f70257/deploy-status)](https://app.netlify.com/sites/vue-function-api-realworld/deploys)
 [![vue](https://img.shields.io/badge/build%20with-Vue-blue)](https://img.shields.io/badge/build%20with-Vue-blue)
 [![vue](https://img.shields.io/github/languages/top/dj0nny/vue-function-api-realworld)](https://img.shields.io/github/languages/top/dj0nny/vue-function-api-realworld)
 [![npm version](https://badge.fury.io/js/vue.svg)](https://badge.fury.io/js/vue)
@@ -55,7 +56,7 @@ npm run buld
 yarn build
 ```
 
-A deployed version on [Now](https://zeit.co/now) in available at this URL: https://vue-function-api-realworld-94hplejg4.now.sh/#/
+A deployed version on [Netlify](https://www.netlify.com/) in available at this URL: https://vue-function-api-realworld.netlify.com/#/
 
 ## Built with ❤️ using:
 
