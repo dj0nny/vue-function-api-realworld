@@ -6,6 +6,7 @@ import types from './types';
 
 const BASE_URL = 'https://conduit.productionready.io/api';
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     tags: [],
     articles: [],
     article: [],
-    comments: [],
+    user: [],
+    isLogged: false,
   },
   mutations: {
     [types.SET_TAGS](state, tags) {
@@ -27,6 +29,12 @@ export default new Vuex.Store({
     },
     [types.SET_COMMENTS](state, commentsList) {
       state.comments = commentsList;
+    },
+    [types.SET_USER](state, user) {
+      state.user = user;
+    },
+    [types.LOGGED_IN](state, value) {
+      state.isLogged = value;
     },
   },
   actions: {
@@ -49,6 +57,21 @@ export default new Vuex.Store({
       const res = await axios.get(`${BASE_URL}/articles/${slug}/comments`);
       const commentsList = res.data.comments;
       commit(types.SET_COMMENTS, commentsList);
+    },
+    async [types.LOGIN_USER]({ commit }, user) {
+      const res = await axios.post(`${BASE_URL}/api/users/login`, user);
+      const loggedUser = res.data.user;
+      commit(types.SET_USER, loggedUser);
+      localStorage.setItem('userjwt', loggedUser.token);
+      commit(types.LOGGED_IN, true);
+    },
+    [types.CHECK_LOGGED_IN]({ commit }) {
+      const logged = localStorage.getItem('userjwt');
+      if (logged) {
+        commit(types.LOGGED_IN, true);
+      } else {
+        commit(types.LOGGED_IN, false);
+      }
     },
   },
 });
