@@ -13,17 +13,14 @@
             <li>That email is already taken</li>
           </ul>
 
-          <form>
+          <form @submit.prevent="">
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+              <input v-model="user.email" class="form-control form-control-lg" type="text" placeholder="Email">
             </fieldset>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Email">
+              <input v-model="user.password" class="form-control form-control-lg" type="password" placeholder="Password">
             </fieldset>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="password" placeholder="Password">
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
               Sign up
             </button>
           </form>
@@ -35,7 +32,16 @@
 </template>
 
 <script>
+import { value } from 'vue-function-api';
+
 export default {
   name: 'Login',
+  setup() {
+    const user = value({ email: '', password: '' })
+
+    return {
+      user,
+    }
+  },
 };
 </script>
