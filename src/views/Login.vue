@@ -37,11 +37,11 @@ import { value } from 'vue-function-api';
 export default {
   name: 'Login',
   setup() {
-    const user = value({ email: '', password: '' })
+    const user = value({ email: '', password: '' });
 
     return {
       user,
-    }
+    };
   },
 };
 </script>
