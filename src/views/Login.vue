@@ -9,16 +9,16 @@
             <a href="">Have an account?</a>
           </p>
 
-          <ul class="error-messages">
+          <!-- <ul class="error-messages">
             <li>That email is already taken</li>
-          </ul>
+          </ul> -->
 
-          <form @submit.prevent="">
+          <form @submit.prevent="login">
             <fieldset class="form-group">
-              <input v-model="user.email" class="form-control form-control-lg" type="text" placeholder="Email">
+              <input v-model="userAttempt.user.email" class="form-control form-control-lg" type="text" placeholder="Email">
             </fieldset>
             <fieldset class="form-group">
-              <input v-model="user.password" class="form-control form-control-lg" type="password" placeholder="Password">
+              <input v-model="userAttempt.user.password" class="form-control form-control-lg" type="password" placeholder="Password">
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
               Sign up
@@ -33,14 +33,26 @@
 
 <script>
 import { value } from 'vue-function-api';
+import { useActions, useRouter } from '@u3u/vue-hooks';
+
+import types from '../store/types';
 
 export default {
   name: 'Login',
   setup() {
-    const user = value({ email: '', password: '' });
+    const userAttempt = value({ user: { email: '', password: '' } });
+    const { LOGIN_USER } = useActions([types.LOGIN_USER]);
+    const { router } = useRouter();
+
+    const login = async () => {
+      await LOGIN_USER(userAttempt.value).then(() => {
+        router.push('/');
+      });
+    };
 
     return {
-      user,
+      userAttempt,
+      login,
     };
   },
 };

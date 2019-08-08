@@ -3,9 +3,9 @@ import Vuex from 'vuex';
 
 import axios from 'axios';
 import types from './types';
+import { getToken, saveToken } from '../common/jwt';
 
 const BASE_URL = 'https://conduit.productionready.io/api';
-
 
 Vue.use(Vuex);
 
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     article: [],
     comments: [],
     user: [],
-    isLogged: false,
+    isLogged: !!getToken(),
   },
   mutations: {
     [types.SET_TAGS](state, tags) {
@@ -60,11 +60,11 @@ export default new Vuex.Store({
       commit(types.SET_COMMENTS, commentsList);
     },
     async [types.LOGIN_USER]({ commit }, user) {
-      const res = await axios.post(`${BASE_URL}/api/users/login`, user);
+      const res = await axios.post(`${BASE_URL}/users/login`, user);
       const loggedUser = res.data.user;
       commit(types.SET_USER, loggedUser);
-      localStorage.setItem('userjwt', loggedUser.token);
-      commit(types.LOGGED_IN, true);
+      saveToken(loggedUser.token);
+      commit(types.LOGGED_IN, loggedUser.token);
     },
     // [types.CHECK_LOGGED_IN]({ commit }) {
     //   const logged = localStorage.getItem('userjwt');

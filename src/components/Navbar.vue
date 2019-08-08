@@ -16,10 +16,10 @@
             <i class="ion-gear-a"></i>&nbsp;Settings
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!isLogged">
           <router-link to="/login" class="nav-link">Sign In</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!isLogged">
           <router-link to="/register" class="nav-link">Sign up</router-link>
         </li>
       </ul>
