@@ -38,11 +38,6 @@ export default {
   name: 'Navbar',
   setup() {
     const { isLogged } = useState(['isLogged']);
-    const { CHECK_LOGGED_IN } = useActions([types.CHECK_LOGGED_IN]);
-
-    onCreated(() => {
-      CHECK_LOGGED_IN();
-    });
 
     return {
       isLogged,

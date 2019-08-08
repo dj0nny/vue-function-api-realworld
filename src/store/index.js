@@ -65,13 +65,13 @@ export default new Vuex.Store({
       localStorage.setItem('userjwt', loggedUser.token);
       commit(types.LOGGED_IN, true);
     },
-    [types.CHECK_LOGGED_IN]({ commit }) {
-      const logged = localStorage.getItem('userjwt');
-      if (logged) {
-        commit(types.LOGGED_IN, true);
-      } else {
-        commit(types.LOGGED_IN, false);
-      }
-    },
+    // [types.CHECK_LOGGED_IN]({ commit }) {
+    //   const logged = localStorage.getItem('userjwt');
+    //   if (logged) {
+    //     commit(types.LOGGED_IN, true);
+    //   } else {
+    //     commit(types.LOGGED_IN, false);
+    //   }
+    // },
   },
 });
