@@ -29,10 +29,7 @@
 
 
 <script>
-import { onCreated } from 'vue-function-api';
-import { useState, useActions } from '@u3u/vue-hooks';
-
-import types from '../store/types';
+import { useState } from '@u3u/vue-hooks';
 
 export default {
   name: 'Navbar',
