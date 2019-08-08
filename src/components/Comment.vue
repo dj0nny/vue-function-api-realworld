@@ -5,7 +5,7 @@
     </div>
     <div class="card-footer">
       <a href="" class="comment-author">
-        <img v-if="article.author.image" :src="item.author.image" class="comment-author-img" />
+        <img v-if="item.author.image" :src="item.author.image" class="comment-author-img" />
       </a>
       &nbsp;
       <a href="" class="comment-author">{{ item.author.username }}</a>

@@ -10,11 +10,11 @@
         <i class="ion-heart"></i> {{ item.favoritesCount }}
       </button>
     </div>
-    <a href="" class="preview-link">
+    <router-link :to="{ name: 'article-detail', params: { slug: item.slug }}" class="preview-link">
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
       <router-link :to="{ name: 'article-detail', params: { slug: item.slug }}"><span>Read more...</span></router-link>
-    </a>
+    </router-link>
   </div>
 </template>
 

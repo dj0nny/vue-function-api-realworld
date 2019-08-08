@@ -14,6 +14,7 @@ export default new Vuex.Store({
     tags: [],
     articles: [],
     article: [],
+    comments: [],
     user: [],
     isLogged: false,
   },

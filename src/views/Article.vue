@@ -63,7 +63,11 @@
 
         <div class="col-xs-12 col-md-8 offset-md-2">
 
-          <form class="card comment-form">
+          <div class="not-logged-msg" v-if="!isLogged">
+            <router-link to="/login">Sign in</router-link> or <router-link to="/register">sign up</router-link> to add comments on this article.
+          </div>
+
+          <form class="card comment-form" v-if="isLogged">
             <div class="card-block">
               <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
             </div>
@@ -75,8 +79,8 @@
             </div>
           </form>
 
-          <div v-if="comments">
-            <Comment v-for="(comment, index) in comments" :key="index"></Comment>
+          <div v-if="comments.length > 0">
+            <Comment v-for="(comment, index) in comments" :key="index" :item="comment"></Comment>
           </div>
 
         </div>
@@ -101,7 +105,7 @@ export default {
     Comment,
   },
   setup() {
-    const { article, comments } = useState(['article', 'comments']);
+    const { article, comments, isLogged } = useState(['article', 'comments', 'isLogged']);
     const { FETCH_ARTICLE_DETAIL, FETCH_COMMENTS } = useActions([types.FETCH_ARTICLE_DETAIL, types.FETCH_COMMENTS]);
     const { route } = useRouter();
 
@@ -113,7 +117,15 @@ export default {
     return {
       article,
       comments,
+      isLogged,
     };
   },
 };
 </script>
+
+
+<style scoped>
+.not-logged-msg {
+  margin-bottom: 30px;
+}
+</style>
