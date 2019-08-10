@@ -47,14 +47,14 @@ export default {
 
     const login = async () => {
       await LOGIN_USER(userAttempt.value).then(() => {
-        router.push({ name: 'profile', params: { user: user.username }});
+        router.push({ name: 'profile', params: { user: user.username } });
       });
     };
 
     return {
       userAttempt,
       login,
-      user
+      user,
     };
   },
 };
