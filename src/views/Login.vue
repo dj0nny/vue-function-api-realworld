@@ -33,7 +33,7 @@
 
 <script>
 import { value } from 'vue-function-api';
-import { useActions, useRouter, useState } from '@u3u/vue-hooks';
+import { useActions, useRouter } from '@u3u/vue-hooks';
 
 import types from '../store/types';
 
@@ -41,20 +41,18 @@ export default {
   name: 'Login',
   setup() {
     const userAttempt = value({ user: { email: '', password: '' } });
-    const { user } = useState(['user']);
     const { LOGIN_USER } = useActions([types.LOGIN_USER]);
     const { router } = useRouter();
 
     const login = async () => {
       await LOGIN_USER(userAttempt.value).then(() => {
-        router.push({ name: 'profile', params: { user: user.username } });
+        router.push('/');
       });
     };
 
     return {
       userAttempt,
       login,
-      user,
     };
   },
 };

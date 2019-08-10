@@ -6,9 +6,9 @@
         <h1>{{ article.title }}</h1>
 
         <div class="article-meta">
-          <a href=""><img v-if="article.author.image" :src="article.author.image" /></a>
+          <router-link :to="{ name: 'profile', params: { user: article.author.username }}"><img v-if="article.author.image" :src="article.author.image" /></router-link>
           <div class="info">
-            <a href="" class="author">{{ article.author.username }}</a>
+            <router-link :to="{ name: 'profile', params: { user: article.author.username }}" class="author">{{ article.author.username }}</router-link>
             <span class="date">{{ article.createdAt }}</span>
           </div>
           <button class="btn btn-sm btn-outline-secondary">
@@ -109,9 +109,9 @@ export default {
     const { FETCH_ARTICLE_DETAIL, FETCH_COMMENTS } = useActions([types.FETCH_ARTICLE_DETAIL, types.FETCH_COMMENTS]);
     const { route } = useRouter();
 
-    onCreated(() => {
-      FETCH_ARTICLE_DETAIL(route.value.params.slug);
-      FETCH_COMMENTS(route.value.params.slug);
+    onCreated(async () => {
+      await FETCH_ARTICLE_DETAIL(route.value.params.slug);
+      await FETCH_COMMENTS(route.value.params.slug);
     });
 
     return {

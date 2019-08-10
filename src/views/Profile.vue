@@ -6,15 +6,15 @@
         <div class="row">
 
           <div class="col-xs-12 col-md-10 offset-md-1">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-            <h4>Eric Simons</h4>
+            <img :src="userProfile.image" class="user-img" />
+            <h4>{{ userProfile.username }}</h4>
             <p>
-              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
+              {{ userProfile.bio }}
             </p>
             <button class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
               &nbsp;
-              Follow Eric Simons
+              Follow {{ userProfile.username }}
             </button>
           </div>
 
@@ -37,46 +37,7 @@
             </ul>
           </div>
 
-          <div class="article-preview">
-            <div class="article-meta">
-              <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-              <div class="info">
-                <a href="" class="author">Eric Simons</a>
-                <span class="date">January 20th</span>
-              </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                <i class="ion-heart"></i> 29
-              </button>
-            </div>
-            <a href="" class="preview-link">
-              <h1>How to build webapps that scale</h1>
-              <p>This is the description for the post.</p>
-              <span>Read more...</span>
-            </a>
-          </div>
-
-          <div class="article-preview">
-            <div class="article-meta">
-              <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
-              <div class="info">
-                <a href="" class="author">Albert Pai</a>
-                <span class="date">January 20th</span>
-              </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                <i class="ion-heart"></i> 32
-              </button>
-            </div>
-            <a href="" class="preview-link">
-              <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
-              <p>This is the description for the post.</p>
-              <span>Read more...</span>
-              <ul class="tag-list">
-                <li class="tag-default tag-pill tag-outline">Music</li>
-                <li class="tag-default tag-pill tag-outline">Song</li>
-              </ul>
-            </a>
-          </div>
-
+          <ArticlePreviewProfile v-for="(userArticle, index) in userArticles" :key="index" :item="userArticle"></ArticlePreviewProfile>
 
         </div>
 
@@ -87,7 +48,38 @@
 </template>
 
 <script>
+import { onCreated, watch } from 'vue-function-api';
+import { useState, useActions, useRouter } from '@u3u/vue-hooks';
+
+import ArticlePreviewProfile from '../components/ArticlePreviewProfile.vue';
+import types from '../store/types';
+
 export default {
   name: 'Profile',
+  components: {
+    ArticlePreviewProfile,
+  },
+  setup() {
+    const { userArticles, userProfile } = useState(['userArticles', 'userProfile']);
+    const { FETCH_USER_ARTICLES, FETCH_USER_PROFILE } = useActions([types.FETCH_USER_ARTICLES, types.FETCH_USER_PROFILE]);
+    const { route } = useRouter();
+    const profile = route.value.params.user;
+
+
+    onCreated(async () => {
+      await FETCH_USER_PROFILE(profile);
+      await FETCH_USER_ARTICLES(profile);
+    });
+
+    watch(() => route.value.params.user, (changedProfile) => {
+      FETCH_USER_PROFILE(changedProfile);
+      FETCH_USER_ARTICLES(changedProfile);
+    });
+
+    return {
+      userArticles,
+      userProfile,
+    };
+  },
 };
 </script>

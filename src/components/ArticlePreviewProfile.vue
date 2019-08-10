@@ -13,14 +13,16 @@
     <router-link :to="{ name: 'article-detail', params: { slug: item.slug }}" class="preview-link">
       <h1>{{ item.title }}</h1>
       <p>{{ item.description }}</p>
-      <router-link :to="{ name: 'article-detail', params: { slug: item.slug }}"><span>Read more...</span></router-link>
+			<ul class="tag-list" v-if="item.tagList.length > 0">
+				<li v-for="(tag, index) in item.tagList" :key="index" class="tag-default tag-pill tag-outline">{{ tag }}</li>
+			</ul>
     </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ArticlePreview',
+  name: 'ArticlePreviewProfile',
   props: ['item'],
 };
 </script>

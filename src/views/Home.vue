@@ -59,9 +59,9 @@ export default {
     const { tags, articles } = useState(['tags', 'articles']);
     const { FETCH_TAGS, FETCH_ARTICLES } = useActions([types.FETCH_TAGS, types.FETCH_ARTICLES]);
 
-    onCreated(() => {
-      FETCH_TAGS();
-      FETCH_ARTICLES();
+    onCreated(async () => {
+      await FETCH_TAGS();
+      await FETCH_ARTICLES();
     });
 
     return {

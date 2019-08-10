@@ -14,7 +14,9 @@ export default new Vuex.Store({
     tags: [],
     articles: [],
     article: [],
+    userArticles: [],
     comments: [],
+    userProfile: [],
     user: JSON.parse(getToken('userdetail')),
     isLogged: !!getToken('userjwt'),
   },
@@ -25,6 +27,9 @@ export default new Vuex.Store({
     [types.SET_ARTICLES](state, articles) {
       state.articles = articles;
     },
+    [types.SET_USER_ARTICLES](state, articles) {
+      state.userArticles = articles;
+    },
     [types.SET_ARTICLE_DETAIL](state, article) {
       state.article = article;
     },
@@ -33,6 +38,9 @@ export default new Vuex.Store({
     },
     [types.SET_USER](state, user) {
       state.user = user;
+    },
+    [types.SET_USER_PROFILE](state, prof) {
+      state.userProfile = prof;
     },
     [types.LOGGED_IN](state, value) {
       state.isLogged = value;
@@ -48,6 +56,11 @@ export default new Vuex.Store({
       const res = await axios.get(`${BASE_URL}/articles`);
       const articlesList = res.data.articles;
       commit(types.SET_ARTICLES, articlesList);
+    },
+    async [types.FETCH_USER_ARTICLES]({ commit }, username) {
+      const res = await axios.get(`${BASE_URL}/articles?author=${username}`);
+      const userArticles = res.data.articles;
+      commit(types.SET_USER_ARTICLES, userArticles);
     },
     async [types.FETCH_ARTICLE_DETAIL]({ commit }, slug) {
       const res = await axios.get(`${BASE_URL}/articles/${slug}`);
@@ -67,13 +80,10 @@ export default new Vuex.Store({
       saveToken('userjwt', loggedUser.token);
       commit(types.LOGGED_IN, loggedUser.token);
     },
-    // [types.CHECK_LOGGED_IN]({ commit }) {
-    //   const logged = localStorage.getItem('userjwt');
-    //   if (logged) {
-    //     commit(types.LOGGED_IN, true);
-    //   } else {
-    //     commit(types.LOGGED_IN, false);
-    //   }
-    // },
+    async [types.FETCH_USER_PROFILE]({ commit }, username) {
+      const res = await axios.get(`${BASE_URL}/profiles/${username}`);
+      const currentProfile = res.data.profile;
+      commit(types.SET_USER_PROFILE, currentProfile);
+    },
   },
 });
