@@ -15,8 +15,8 @@ export default new Vuex.Store({
     articles: [],
     article: [],
     comments: [],
-    user: [],
-    isLogged: !!getToken(),
+    user: JSON.parse(getToken('userdetail')),
+    isLogged: !!getToken('userjwt'),
   },
   mutations: {
     [types.SET_TAGS](state, tags) {
@@ -62,8 +62,9 @@ export default new Vuex.Store({
     async [types.LOGIN_USER]({ commit }, user) {
       const res = await axios.post(`${BASE_URL}/users/login`, user);
       const loggedUser = res.data.user;
+      saveToken('userdetail', JSON.stringify(loggedUser));
       commit(types.SET_USER, loggedUser);
-      saveToken(loggedUser.token);
+      saveToken('userjwt', loggedUser.token);
       commit(types.LOGGED_IN, loggedUser.token);
     },
     // [types.CHECK_LOGGED_IN]({ commit }) {

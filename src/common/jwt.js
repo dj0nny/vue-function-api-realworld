@@ -1,13 +1,11 @@
-const TOKEN_KEY = 'userjwt';
+export const getToken = tokenName => window.localStorage.getItem(tokenName);
 
-export const getToken = () => window.localStorage.getItem(TOKEN_KEY);
-
-export const saveToken = (token) => {
-  window.localStorage.setItem(TOKEN_KEY, token);
+export const saveToken = (tokenName, token) => {
+  window.localStorage.setItem(tokenName, token);
 };
 
-export const deleteToken = () => {
-  window.localStorage.removeItem(TOKEN_KEY);
+export const deleteToken = (tokenName) => {
+  window.localStorage.removeItem(tokenName);
 };
 
 export default { getToken, saveToken, deleteToken };
