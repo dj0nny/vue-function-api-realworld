@@ -90,7 +90,7 @@ export default new Vuex.Store({
       const res = await axios.post(`${BASE_URL}/users/login`, user)
         .catch(function (e) {
           if (e.response) {
-            commit(types.SET_ERRORS, true);
+            commit(types.SET_ERRORS, e.response.data);
           }
         });
       const loggedUser = res.data.user;
@@ -103,6 +103,19 @@ export default new Vuex.Store({
       const res = await axios.get(`${BASE_URL}/profiles/${username}`);
       const currentProfile = res.data.profile;
       commit(types.SET_USER_PROFILE, currentProfile);
+    },
+    async [types.REGISTER_USER]({ commit }, newUser) {
+      const res = await axios.post(`${BASE_URL}/users`, newUser)
+        .catch(function (e) {
+          if (e.response) {
+            commit(types.SET_ERRORS, e.response.data.errors);
+          }
+        });
+      const newUserLogged = res.data.user;
+      saveToken('userdetail', JSON.stringify(newUserLogged));
+      commit(types.SET_USER, newUserLogged);
+      saveToken('userjwt', newUserLogged.token);
+      commit(types.LOGGED_IN, newUserLogged.token);
     },
   },
 });
