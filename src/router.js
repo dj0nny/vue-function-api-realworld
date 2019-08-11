@@ -6,6 +6,8 @@ import Article from './views/Article.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Profile from './views/Profile.vue';
+import Settings from './views/Settings.vue';
+import Editor from './views/Editor.vue';
 
 Vue.use(Router);
 
@@ -35,6 +37,16 @@ export default new Router({
       path: '/profile/:user',
       name: 'profile',
       component: Profile,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+    },
+    {
+      path: '/new',
+      name: 'new',
+      component: Editor,
     },
   ],
 });
