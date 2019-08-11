@@ -19,6 +19,7 @@ export default new Vuex.Store({
     userProfile: [],
     user: JSON.parse(getToken('userdetail')),
     isLogged: !!getToken('userjwt'),
+    isLoading: false,
   },
   mutations: {
     [types.SET_TAGS](state, tags) {
@@ -45,22 +46,31 @@ export default new Vuex.Store({
     [types.LOGGED_IN](state, value) {
       state.isLogged = value;
     },
+    [types.SET_IS_LOADING](state, value) {
+      state.isLoading = value;
+    },
   },
   actions: {
     async [types.FETCH_TAGS]({ commit }) {
+      commit(types.SET_IS_LOADING, true);
       const res = await axios.get(`${BASE_URL}/tags`);
       const tagsList = res.data.tags;
       commit(types.SET_TAGS, tagsList);
+      commit(types.SET_IS_LOADING, false);
     },
     async [types.FETCH_ARTICLES]({ commit }) {
+      commit(types.SET_IS_LOADING, true);
       const res = await axios.get(`${BASE_URL}/articles`);
       const articlesList = res.data.articles;
       commit(types.SET_ARTICLES, articlesList);
+      commit(types.SET_IS_LOADING, false);
     },
     async [types.FETCH_USER_ARTICLES]({ commit }, username) {
+      commit(types.SET_IS_LOADING, true);
       const res = await axios.get(`${BASE_URL}/articles?author=${username}`);
       const userArticles = res.data.articles;
       commit(types.SET_USER_ARTICLES, userArticles);
+      commit(types.SET_IS_LOADING, false);
     },
     async [types.FETCH_ARTICLE_DETAIL]({ commit }, slug) {
       const res = await axios.get(`${BASE_URL}/articles/${slug}`);

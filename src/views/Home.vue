@@ -21,9 +21,14 @@
                 <a class="nav-link active" href="">Global Feed</a>
               </li>
             </ul>
+            <div class="loading-msg" v-if="isLoading">
+             <p>Loading articles...</p>
+            </div>
           </div>
 
-          <ArticlePreview v-for="(article, index) in articles" :key="index" :item="article"></ArticlePreview>
+          <div class="loading-wrapper" v-if="!isLoading">
+            <ArticlePreview v-for="(article, index) in articles" :key="index" :item="article"></ArticlePreview>
+          </div>
 
         </div>
 
@@ -31,7 +36,11 @@
           <div class="sidebar">
             <p>Popular Tags</p>
 
-            <div class="tag-list">
+            <div class="loading-msg" v-if="isLoading">
+              <p>Loading tags...</p>
+            </div>
+
+            <div class="tag-list" v-if="!isLoading">
               <a href="" class="tag-pill tag-default" v-for="tag in tags" :key="tag">{{ tag }}</a>
             </div>
           </div>
@@ -56,7 +65,7 @@ export default {
     ArticlePreview,
   },
   setup() {
-    const { tags, articles } = useState(['tags', 'articles']);
+    const { tags, articles, isLoading } = useState(['tags', 'articles', 'isLoading']);
     const { FETCH_TAGS, FETCH_ARTICLES } = useActions([types.FETCH_TAGS, types.FETCH_ARTICLES]);
 
     onCreated(async () => {
@@ -67,6 +76,7 @@ export default {
     return {
       tags,
       articles,
+      isLoading,
     };
   },
 };

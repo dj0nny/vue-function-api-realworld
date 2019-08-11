@@ -35,10 +35,14 @@
                 <a class="nav-link" href="">Favorited Articles</a>
               </li>
             </ul>
+            <div class="loading-msg" v-if="isLoading">
+              <p>Loading articles...</p>
+            </div>
           </div>
 
-          <ArticlePreviewProfile v-for="(userArticle, index) in userArticles" :key="index" :item="userArticle"></ArticlePreviewProfile>
-
+          <div class="loading-wrapper" v-if="!isLoading">
+            <ArticlePreviewProfile v-for="(userArticle, index) in userArticles" :key="index" :item="userArticle"></ArticlePreviewProfile>
+          </div>
         </div>
 
       </div>
@@ -60,7 +64,7 @@ export default {
     ArticlePreviewProfile,
   },
   setup() {
-    const { userArticles, userProfile } = useState(['userArticles', 'userProfile']);
+    const { userArticles, userProfile, isLoading } = useState(['userArticles', 'userProfile', 'isLoading']);
     const { FETCH_USER_ARTICLES, FETCH_USER_PROFILE } = useActions([types.FETCH_USER_ARTICLES, types.FETCH_USER_PROFILE]);
     const { route } = useRouter();
     const profile = route.value.params.user;
@@ -79,6 +83,7 @@ export default {
     return {
       userArticles,
       userProfile,
+      isLoading,
     };
   },
 };
