@@ -90,7 +90,6 @@ export default new Vuex.Store({
       const res = await axios.post(`${BASE_URL}/users/login`, user)
         .catch(function (e) {
           if (e.response) {
-            console.log(e.response.data);
             commit(types.SET_ERRORS, true);
           }
         });
