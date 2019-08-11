@@ -20,6 +20,7 @@ export default new Vuex.Store({
     user: JSON.parse(getToken('userdetail')),
     isLogged: !!getToken('userjwt'),
     isLoading: false,
+    errors: false,
   },
   mutations: {
     [types.SET_TAGS](state, tags) {
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     },
     [types.SET_IS_LOADING](state, value) {
       state.isLoading = value;
+    },
+    [types.SET_ERRORS](state, err) {
+      state.errors = err;
     },
   },
   actions: {
@@ -83,7 +87,13 @@ export default new Vuex.Store({
       commit(types.SET_COMMENTS, commentsList);
     },
     async [types.LOGIN_USER]({ commit }, user) {
-      const res = await axios.post(`${BASE_URL}/users/login`, user);
+      const res = await axios.post(`${BASE_URL}/users/login`, user)
+        .catch(function (e) {
+          if (e.response) {
+            console.log(e.response.data);
+            commit(types.SET_ERRORS, true);
+          }
+        });
       const loggedUser = res.data.user;
       saveToken('userdetail', JSON.stringify(loggedUser));
       commit(types.SET_USER, loggedUser);

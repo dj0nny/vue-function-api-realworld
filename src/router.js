@@ -44,8 +44,8 @@ export default new Router({
       component: Settings,
     },
     {
-      path: '/new',
-      name: 'new',
+      path: '/editor',
+      name: 'editor',
       component: Editor,
     },
   ],

@@ -6,12 +6,12 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign up</h1>
           <p class="text-xs-center">
-            <a href="">Have an account?</a>
+            <router-link to="/register">Have an account?</router-link>
           </p>
 
-          <!-- <ul class="error-messages">
-            <li>That email is already taken</li>
-          </ul> -->
+          <ul class="error-messages" v-if="errors">
+            <li>Email or password invalid</li>
+          </ul>
 
           <form @submit.prevent="login">
             <fieldset class="form-group">
@@ -33,7 +33,7 @@
 
 <script>
 import { value } from 'vue-function-api';
-import { useActions, useRouter } from '@u3u/vue-hooks';
+import { useState, useActions, useRouter } from '@u3u/vue-hooks';
 
 import types from '../store/types';
 
@@ -41,6 +41,7 @@ export default {
   name: 'Login',
   setup() {
     const userAttempt = value({ user: { email: '', password: '' } });
+    const { errors } = useState(['errors']);
     const { LOGIN_USER } = useActions([types.LOGIN_USER]);
     const { router } = useRouter();
 
@@ -51,6 +52,7 @@ export default {
     };
 
     return {
+      errors,
       userAttempt,
       login,
     };
