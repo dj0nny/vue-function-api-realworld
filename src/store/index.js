@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 
 import axios from 'axios';
 import types from './types';
-import { getToken, saveToken } from '../common/jwt';
+import { getToken, saveToken, deleteToken } from '../common/jwt';
 
 const BASE_URL = 'https://conduit.productionready.io/api';
 
@@ -116,6 +116,12 @@ export default new Vuex.Store({
       commit(types.SET_USER, newUserLogged);
       saveToken('userjwt', newUserLogged.token);
       commit(types.LOGGED_IN, newUserLogged.token);
+    },
+    [types.LOGOUT]({ commit }) {
+      deleteToken('userdetail');
+      deleteToken('userjwt');
+      commit(types.SET_USER, []);
+      commit(types.LOGGED_IN, false);
     },
   },
 });

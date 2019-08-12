@@ -4,7 +4,7 @@
       <div class="row">
 
         <div class="col-md-6 offset-md-3 col-xs-12">
-          <h1 class="text-xs-center">Sign up</h1>
+          <h1 class="text-xs-center">Sign in</h1>
           <p class="text-xs-center">
             <router-link to="/register">Have an account?</router-link>
           </p>
