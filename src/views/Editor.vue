@@ -36,15 +36,19 @@ import { value } from 'vue-function-api';
 export default {
   name: 'Editor',
   setup() {
-    const newArticle = value({ article: { title: '', description: '', body: '', tagList: [] } });
+    const newArticle = value({
+      article: {
+        title: '', description: '', body: '', tagList: [],
+      },
+    });
 
     const addArticle = () => {
-    }
+    };
 
     return {
       newArticle,
       addArticle,
-    }
-  }
+    };
+  },
 };
 </script>
