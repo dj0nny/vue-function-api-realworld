@@ -21,6 +21,8 @@
 <script>
 export default {
   name: 'Comment',
-  props: ['item'],
+  props: {
+    item: Object,
+  },
 };
 </script>

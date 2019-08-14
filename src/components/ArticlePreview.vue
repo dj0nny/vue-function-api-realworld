@@ -21,6 +21,8 @@
 <script>
 export default {
   name: 'ArticlePreview',
-  props: ['item'],
+  props: {
+    item: Object,
+  },
 };
 </script>

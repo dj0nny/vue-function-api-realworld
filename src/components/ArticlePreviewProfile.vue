@@ -23,6 +23,8 @@
 <script>
 export default {
   name: 'ArticlePreviewProfile',
-  props: ['item'],
+  props: {
+    item: Object,
+  },
 };
 </script>
