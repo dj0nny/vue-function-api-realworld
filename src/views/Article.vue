@@ -115,7 +115,7 @@ export default {
     onCreated(async () => {
       await FETCH_ARTICLE_DETAIL(route.value.params.slug).then(() => {
         markedBody.value = marked(article.value.body);
-      })
+      });
       await FETCH_COMMENTS(route.value.params.slug);
     });
 
