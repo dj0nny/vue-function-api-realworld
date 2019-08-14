@@ -31,7 +31,7 @@
 
       <div class="row article-content">
         <div class="col-md-12">
-          <div v-html="article.body"></div>
+         <div v-html="markedBody"></div>
         </div>
       </div>
 
@@ -93,8 +93,9 @@
 </template>
 
 <script>
-import { onCreated } from 'vue-function-api';
+import { onCreated, value } from 'vue-function-api';
 import { useState, useActions, useRouter } from '@u3u/vue-hooks';
+import marked from 'marked';
 
 import types from '../store/types';
 import Comment from '../components/Comment.vue';
@@ -109,8 +110,12 @@ export default {
     const { FETCH_ARTICLE_DETAIL, FETCH_COMMENTS } = useActions([types.FETCH_ARTICLE_DETAIL, types.FETCH_COMMENTS]);
     const { route } = useRouter();
 
+    const markedBody = value('');
+
     onCreated(async () => {
-      await FETCH_ARTICLE_DETAIL(route.value.params.slug);
+      await FETCH_ARTICLE_DETAIL(route.value.params.slug).then(() => {
+        markedBody.value = marked(article.value.body);
+      })
       await FETCH_COMMENTS(route.value.params.slug);
     });
 
@@ -118,6 +123,7 @@ export default {
       article,
       comments,
       isLogged,
+      markedBody,
     };
   },
 };
