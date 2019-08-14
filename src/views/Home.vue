@@ -41,7 +41,7 @@
             </div>
 
             <div class="tag-list" v-if="!isLoading">
-              <a href="" class="tag-pill tag-default" v-for="tag in tags" :key="tag">{{ tag }}</a>
+              <TagItem v-for="(tag, index) in tags" :key="index" :tagName="tag"></TagItem>
             </div>
           </div>
         </div>
@@ -57,12 +57,14 @@ import { onCreated } from 'vue-function-api';
 import { useState, useActions } from '@u3u/vue-hooks';
 
 import ArticlePreview from '../components/ArticlePreview.vue';
+import TagItem from '../components/TagItem.vue';
 import types from '../store/types';
 
 export default {
   name: 'home',
   components: {
     ArticlePreview,
+    TagItem,
   },
   setup() {
     const { tags, articles, isLoading } = useState(['tags', 'articles', 'isLoading']);
