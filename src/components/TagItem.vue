@@ -7,6 +7,6 @@ export default {
   name: 'TagItem',
   props: {
     tagName: String,
-  }
-}
+  },
+};
 </script>
