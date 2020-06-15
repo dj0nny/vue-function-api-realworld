@@ -69,7 +69,6 @@ export default {
     const { route } = useRouter();
     const profile = route.value.params.user;
 
-
     onCreated(async () => {
       await FETCH_USER_PROFILE(profile);
       await FETCH_USER_ARTICLES(profile);

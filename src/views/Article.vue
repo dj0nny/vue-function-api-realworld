@@ -129,7 +129,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .not-logged-msg {
   margin-bottom: 30px;

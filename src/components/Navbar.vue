@@ -32,7 +32,6 @@
   </nav>
 </template>
 
-
 <script>
 import { useState } from '@u3u/vue-hooks';
 

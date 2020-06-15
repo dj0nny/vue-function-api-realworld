@@ -1,4 +1,4 @@
-export const getToken = tokenName => window.localStorage.getItem(tokenName);
+export const getToken = (tokenName) => window.localStorage.getItem(tokenName);
 
 export const saveToken = (tokenName, token) => {
   window.localStorage.setItem(tokenName, token);
